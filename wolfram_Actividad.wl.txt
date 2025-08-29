@@ -1,0 +1,46 @@
+(* Datos de entrada *)
+inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
+
+
+outputsAND = {0, 0, 0, 1};
+outputsOR = {0, 1, 1, 1};
+outputsXOR = {0, 1, 1, 0};
+
+(* Red neuronal para AND *)
+netAND = NetChain[{
+   LinearLayer[2],
+   Tanh,
+   LinearLayer[1],
+   LogisticSigmoid
+   }];
+
+trainedAND = NetTrain[netAND, inputs -> outputsAND]
+
+(* Probar la red entrenada AND *)
+TableForm[Thread[inputs -> Round[trainedAND[inputs]]]]
+
+(* Red neuronal para OR *)
+netOR = NetChain[{
+   LinearLayer[2],
+   Tanh,
+   LinearLayer[1],
+   LogisticSigmoid
+   }];
+
+trainedOR = NetTrain[netOR, inputs -> outputsOR]
+
+(* Probar la red entrenada OR *)
+TableForm[Thread[inputs -> Round[trainedOR[inputs]]]]
+
+(* Red neuronal para XOR *)
+netXOR = NetChain[{
+   LinearLayer[4], (* neuronas para que aprenda XOR *)
+   Tanh,
+   LinearLayer[1],
+   LogisticSigmoid
+   }];
+
+trainedXOR = NetTrain[netXOR, inputs -> outputsXOR]
+
+(* Probar la red entrenada XOR *)
+TableForm[Thread[inputs -> Round[trainedXOR[inputs]]]]
